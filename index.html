@@ -12,11 +12,18 @@
       { name: 'Mega Man X', minutes: 60 }
     ];
 
-    var Game = Backbone.Model.extend({})
-    var GameCollection = Backbone.Collection.extend({
-      model: Game
+    var GameTracker = { Models: {}, Collections: {}, Views: {} };
+
+  //MODELS
+    GameTracker.Models.Game = Backbone.Model.extend({})
+
+  //COLLECTIONS
+    GameTracker.Collections.GameCollection = Backbone.Collection.extend({
+      model: GameTracker.Models.Game
     });
-    var GameTableRowView = Backbone.View.extend({
+
+  //VIEWS
+    GameTracker.Views.GameTableRowView = Backbone.View.extend({
       tagName: 'tr',
       template: _.template("<td><%= get('name') %></td><td><%= get('minutes') %></td>"),
       render: function () {
@@ -24,23 +31,25 @@
         return this
       }
     });
-    var GameTableView = Backbone.View.extend({
-     tagName: 'table',
-     template: _.template('<thead><tr><th>Name</th><th>Minutes Played</th></tr></thead><tbody></tbody>'),
-     render: function () {
-       this.$el.html(this.template());
-       this.collection.each(function (game) {
-         var gameView = new GameTableRowView({ model: game });
-         this.$('tbody').append(gameView.render().el);
-       }, this);
-       return this;
-     }
-   });
 
+    GameTracker.Views.GameTableView = Backbone.View.extend({
+      tagName: 'table',
+      template: _.template('<thead><tr><th>Name</th><th>Minutes Played</th></tr></thead><tbody></tbody>'),
+      render: function () {
+        this.$el.html(this.template());
+        this.collection.each(function (game) {
+          var gameView = new GameTracker.Views.GameTableRowView({ model: game });
+          this.$('tbody').append(gameView.render().el);
+        }, this);
+        return this;
+      }
+    });
+
+  //RUN THE APP
     $(document).ready(function () {
-      var gameCollection = new GameCollection();
+      var gameCollection = new GameTracker.Collections.GameCollection();
       gameCollection.add(games)
-      var gameTable = new GameTableView({ collection: gameCollection });
+      var gameTable = new GameTracker.Views.GameTableView({ collection: gameCollection });
       $('.content').html(gameTable.render().el);
     });
   </script>
