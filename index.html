@@ -13,12 +13,20 @@
     ];
 
     var Game = Backbone.Model.extend({})
-    var gameListing = _.template("<tr><td><%= get('name') %></td><td><%= get('minutes') %></td></tr>");
-    
+    var GameView = Backbone.View.extend({
+      tagName: 'tr',
+      template: _.template("<td><%= get('name') %></td><td><%= get('minutes') %></td>"),
+      render: function () {
+        this.$el.html(this.template(this.model));
+        return this;
+      }
+    });
+
     $(document).ready(function () {
       _.each(games, function (gameData) {
         var game = new Game(gameData)
-        $('tbody').append(gameListing(game));
+        var gameView = new GameView({ model: game })
+        $('tbody').append(gameView.render().el);
       });
     });
   </script>
