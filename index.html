@@ -16,7 +16,7 @@
     var GameCollection = Backbone.Collection.extend({
       model: Game
     });
-    var GameView = Backbone.View.extend({
+    var GameTableRowView = Backbone.View.extend({
       tagName: 'tr',
       template: _.template("<td><%= get('name') %></td><td><%= get('minutes') %></td>"),
       render: function () {
@@ -24,27 +24,29 @@
         return this
       }
     });
+    var GameTableView = Backbone.View.extend({
+     tagName: 'table',
+     template: _.template('<thead><tr><th>Name</th><th>Minutes Played</th></tr></thead><tbody></tbody>'),
+     render: function () {
+       this.$el.html(this.template());
+       this.collection.each(function (game) {
+         var gameView = new GameTableRowView({ model: game });
+         this.$('tbody').append(gameView.render().el);
+       }, this);
+       return this;
+     }
+   });
 
     $(document).ready(function () {
       var gameCollection = new GameCollection();
       gameCollection.add(games)
-      gameCollection.each(function(game){
-        var gameView = new GameView({ model: game })
-        $('tbody').append(gameView.render().el)
-      })      
+      var gameTable = new GameTableView({ collection: gameCollection });
+      $('.content').html(gameTable.render().el);
     });
   </script>
 </head>
 <body>
   <div class='header'>Game Tracker</div>
-  <table class='content'>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Minutes Played</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <div class="content"></div>
 </body>
 </html>
