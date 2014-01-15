@@ -59,12 +59,30 @@
      }
     });
 
+    GameTracker.Views.AddForm = Backbone.View.extend({
+      events: {
+        'click button': 'add'
+      },
+      render: function () {
+        this.$el.html("<div><label>Name</label><input class='name'></input></div><div<label>Minutes</label><input class='minutes'></input></div><br /><button>Add</button>");
+        return this;
+      },
+      add: function () {
+        var name = this.$('input.name').val();
+        var minutes = this.$('input.minutes').val();
+        this.collection.add(new GameTracker.Models.Game({ name: name, minutes: minutes }));
+      }
+    });
+
   //RUN THE APP
     $(document).ready(function () {
       var gameCollection = new GameTracker.Collections.GameCollection();
       gameCollection.add(games)
       var gameTable = new GameTracker.Views.GameTableView({ collection: gameCollection });
       $('.content').html(gameTable.render().el);
+      var gameForm = new GameTracker.Views.AddForm({ collection: gameCollection });
+      $('table').before('<div class="form"></div>')
+      $('.form').html(gameForm.render().el)
     });
   </script>
 </head>
