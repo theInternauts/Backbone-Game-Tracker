@@ -11,6 +11,12 @@
 	margin-bottom: 0.8em;
 }
 
+/* FORM */
+.form { 
+	padding: 2em;
+	border: 1px solid #f3f3f3;
+	background-color: #f5f5f5;
+}
 
 label {
 	min-width: 5em;
@@ -21,12 +27,13 @@ button {
 	width: 10em;
 	height: 2em;
 	margin: 1.3em auto;
+	margin-bottom: 0px;
 	display: block;
 }
 
-
+/* DATA TABLE*/
 table { 
-	margin-top: 2em;
+	margin-top: 1em;
 	width: 100%;
 	text-align: left;
 }
