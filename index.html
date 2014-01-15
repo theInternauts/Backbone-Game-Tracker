@@ -39,7 +39,10 @@
 
     GameTracker.Views.GameTableView = Backbone.View.extend({
       tagName: 'table',
-      template: _.template('<thead><tr><th data-sort='name'>Name</th><th data-sort='minutes'>Minutes Played</th></tr></thead><tbody></tbody>'),
+      template: _.template('<thead><tr><th data-sort="name">Name</th><th data-sort="minutes">Minutes Played</th></tr></thead><tbody></tbody>'),
+      events: {
+        'click th': 'sort'
+      },
       render: function () {
         this.$el.html(this.template());
         this.collection.each(function (game) {
