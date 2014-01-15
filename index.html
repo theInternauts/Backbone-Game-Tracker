@@ -50,7 +50,13 @@
           this.$('tbody').append(gameView.render().el);
         }, this);
         return this;
-      }
+      },
+      sort: function (event) {
+       var sortColumn = $(event.currentTarget).data('sort');
+       this.collection.comparator = function (game) { return game.get(sortColumn) };
+       this.collection.sort();
+       this.render();
+     }
     });
 
   //RUN THE APP
