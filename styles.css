@@ -1,0 +1,26 @@
+.content {
+	margin: 1em auto;
+	width: 50%;
+	font-family: Verdana;
+}
+
+.header {
+	font-weight: bold;
+	font-size: 2em;
+	text-align: center;
+	margin-bottom: 0.8em;
+}
+
+label {
+	min-width: 5em;
+	display: inline-block;
+}
+
+input { min-width: 70%; }
+
+button {
+	width: 10em;
+	height: 2em;
+	margin: 1.3em auto;
+	display: block;
+}
