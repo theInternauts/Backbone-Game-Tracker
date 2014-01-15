@@ -15,6 +15,17 @@
     var GameTracker = { Models: {}, Collections: {}, Views: {} };
     GameTracker.vent = _.extend({}, Backbone.Events);
 
+  // ROUTER
+    GameTracker.Router = Backbone.Router.extend({
+      routes: {
+        'sort/:sortColumn' : 'sort'
+      },
+      sort: function (sortColumn) {
+        GameTracker.vent.trigger('sort', sortColumn);
+      }
+    });
+  
+
   //MODELS
     GameTracker.Models.Game = Backbone.Model.extend({
       formattedMinutes: function(){
