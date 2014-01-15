@@ -24,7 +24,11 @@
 
   //COLLECTIONS
     GameTracker.Collections.GameCollection = Backbone.Collection.extend({
-      model: GameTracker.Models.Game
+      model: GameTracker.Models.Game,
+      sortByProperty: function (property) {
+        this.comparator = function (game) { return game.get(property) };
+        this.sort();
+      }
     });
 
   //VIEWS
@@ -41,7 +45,7 @@
       tagName: 'table',
       template: _.template('<thead><tr><th data-sort="name">Name</th><th data-sort="minutes">Minutes Played</th></tr></thead><tbody></tbody>'),
       events: {
-        'click th': 'sort'
+        'click th': 'sortCollection'
       },
       initialize: function(){
         this.collection.on('add', this.render, this);
@@ -54,12 +58,11 @@
         }, this);
         return this;
       },
-      sort: function (event) {
-       var sortColumn = $(event.currentTarget).data('sort');
-       this.collection.comparator = function (game) { return game.get(sortColumn) };
-       this.collection.sort();
-       this.render();
-     }
+      sortCollection: function (event) {
+        var sortColumn = $(event.currentTarget).data('sort')
+        this.collection.sortByProperty(sortColumn)
+        this.render()
+      }
     });
 
     GameTracker.Views.AddForm = Backbone.View.extend({
