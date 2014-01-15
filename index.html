@@ -100,15 +100,16 @@
       var gameCollection = new GameTracker.Collections.GameCollection();
       gameCollection.add(games)
       var gameTable = new GameTracker.Views.GameTableView({ collection: gameCollection });
-      $('.content').html(gameTable.render().el);
       var gameForm = new GameTracker.Views.AddForm({ collection: gameCollection });
-      $('table').before('<div class="form"></div>')
+      
+      $('body').append('<div class="content"></div>')
+      $('.content').append('<div class="header">Game Tracker</div>')
+        .append('<div class="form"></div>')
+        .append(gameTable.render().el);
       $('.form').html(gameForm.render().el)
     });
   </script>
 </head>
 <body>
-  <div class='header'>Game Tracker</div>
-  <div class="content"></div>
 </body>
 </html>
