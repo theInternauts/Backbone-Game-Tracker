@@ -48,7 +48,8 @@
         'click th': 'sortCollection'
       },
       initialize: function(){
-        this.collection.on('add', this.render, this);
+        this.collection.on('add', this.render, this)
+        this.collection.on('sort', this.render, this)
       },
       render: function () {
         this.$el.html(this.template());
@@ -61,7 +62,6 @@
       sortCollection: function (event) {
         var sortColumn = $(event.currentTarget).data('sort')
         this.collection.sortByProperty(sortColumn)
-        this.render()
       }
     });
 
