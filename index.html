@@ -13,6 +13,7 @@
     ];
 
     var GameTracker = { Models: {}, Collections: {}, Views: {} };
+    GameTracker.vent = _.extend({}, Backbone.Events);
 
   //MODELS
     GameTracker.Models.Game = Backbone.Model.extend({
@@ -28,6 +29,9 @@
       sortByProperty: function (property) {
         this.comparator = function (game) { return game.get(property) };
         this.sort();
+      },
+      initialize: function(){
+        GameTracker.vent.on('sort', this.sortByProperty, this)
       }
     });
 
