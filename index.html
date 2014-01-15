@@ -15,7 +15,12 @@
     var GameTracker = { Models: {}, Collections: {}, Views: {} };
 
   //MODELS
-    GameTracker.Models.Game = Backbone.Model.extend({})
+    GameTracker.Models.Game = Backbone.Model.extend({
+      formattedMinutes: function(){
+        var minutes = this.get('minutes');
+        return parseInt(minutes/60, 10) + ' hours ' + minutes%60 + ' minutes';
+      }
+    })
 
   //COLLECTIONS
     GameTracker.Collections.GameCollection = Backbone.Collection.extend({
