@@ -43,6 +43,9 @@
       events: {
         'click th': 'sort'
       },
+      initialize: function(){
+        this.collection.on('add', this.render, this);
+      },
       render: function () {
         this.$el.html(this.template());
         this.collection.each(function (game) {
