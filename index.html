@@ -30,7 +30,7 @@
   //VIEWS
     GameTracker.Views.GameTableRowView = Backbone.View.extend({
       tagName: 'tr',
-      template: _.template("<td><%= get('name') %></td><td><%= get('minutes') %></td>"),
+      template: _.template("<td><%= get('name') %></td><td><%= formattedMinutes() %></td>"),
       render: function () {
         this.$el.html(this.template(this.model))
         return this
@@ -39,7 +39,7 @@
 
     GameTracker.Views.GameTableView = Backbone.View.extend({
       tagName: 'table',
-      template: _.template('<thead><tr><th>Name</th><th>Minutes Played</th></tr></thead><tbody></tbody>'),
+      template: _.template('<thead><tr><th data-sort='name'>Name</th><th data-sort='minutes'>Minutes Played</th></tr></thead><tbody></tbody>'),
       render: function () {
         this.$el.html(this.template());
         this.collection.each(function (game) {
